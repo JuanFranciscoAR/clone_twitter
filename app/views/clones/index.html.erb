@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Clones</h1>
+
+<div id="clones">
+  <% @clones.each do |clone| %>
+    <%= render clone %>
+    <p>
+      <%= link_to "Show this clone", clone %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New clone", new_clone_path %>
