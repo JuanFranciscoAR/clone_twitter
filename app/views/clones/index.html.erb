@@ -1,14 +1,47 @@
+
 <p style="color: green"><%= notice %></p>
 
-<h1>Clones</h1>
-
-<div id="clones">
-  <% @clones.each do |clone| %>
-    <%= render clone %>
-    <p>
-      <%= link_to "Show this clone", clone %>
-    </p>
-  <% end %>
+<div class="alert alert-success">
+  <%= notice %>
 </div>
 
-<%= link_to "New clone", new_clone_path %>
+<div class="container">
+<h1>Tweets</h1>
+
+<%= form_with url: clones_path, method: :get do |form|%>
+ <%= form.text_field :query_text, placeholder: 'Escribe aquí', value: params[:query_text]%>
+ <%=form.submit "Buscar", class:"mb-3" %>
+ 
+    <%= link_to "Crear tweet", new_clone_path, class: "btn btn-success btn-sm ms-3  btn-dark" %>
+ 
+<%end%>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nº</th>
+          <th>Descripciòn</th>
+          <th>Nombre</th>
+          <th colspan="2"></th> 
+        </tr>
+      </thead>
+      <tbody>
+        <% @clones.each do |clone| %>
+          <tr>
+            <td><%= clone.id %></td>
+            <td><%= clone.description %></td>
+            <td><%= clone.username %></td>
+            <td><%= link_to "Leer", clone, class: "btn btn-primary btn-sm" %></td>
+            <td><%= link_to "Actualizar", edit_clone_path(clone), class: "btn btn-secondary btn-sm" %></td>
+          </tr>
+        <% end %>
+            <div class="pagination">
+                    <%== pagy_bootstrap_nav(@pagy) %>
+
+            </div>
+      </tbody>
+    </table>
+  </div>
+</div>
+

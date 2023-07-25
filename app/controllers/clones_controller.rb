@@ -3,7 +3,14 @@ class ClonesController < ApplicationController
 
   # GET /clones or /clones.json
   def index
-    @clones = Clone.all
+    @pagy, @clones = pagy(Clone.all)
+
+    if params[:query_text].present?
+      @clones = Clone.search_full_text(params[:query_text])
+    end
+
+  
+
   end
 
   # GET /clones/1 or /clones/1.json
